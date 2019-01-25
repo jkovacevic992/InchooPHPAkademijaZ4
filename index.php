@@ -41,7 +41,15 @@ while ($bool) {
         case 4:
             {
                 echo "Upišite ID zaposlenika kojeg želite obrisati: \n";
-                brisanjeZaposlenika(fgets(STDIN));
+                $temp=fgets(STDIN);
+                echo "Jeste li sigurni da želite obrisati polaznika s ID-em $temp? (DA/NE)\n";
+
+                if(readline() !== 'da'){
+                    echo "Zaposlenik nije obrisan.\n";
+                }else{
+                    brisanjeZaposlenika($temp);
+                }
+
                 break;
             }
         case 5:
