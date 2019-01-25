@@ -10,6 +10,9 @@ class Zaposlenik
     private $spol;
     private $mjesecnaPrimanja;
 
+
+
+
     /**
      * @return mixed
      */
@@ -39,7 +42,12 @@ class Zaposlenik
      */
     public function setIme($ime)
     {
-        $this->ime = $ime;
+        if(is_numeric($ime) || $ime === ''){
+            echo 'Ime može sadržavati samo slova.';
+        }else{
+            $this->ime = $ime;
+        }
+
     }
 
     /**
@@ -105,4 +113,5 @@ class Zaposlenik
     {
         $this->mjesecnaPrimanja = $mjesecnaPrimanja;
     }
+
 }
