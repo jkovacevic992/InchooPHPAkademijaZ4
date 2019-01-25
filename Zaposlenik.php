@@ -11,7 +11,18 @@ class Zaposlenik
     private $mjesecnaPrimanja;
 
 
+    public static $sviZaposlenici = array();
+    function __construct($id,$ime,$prezime, $datumRodenja, $spol, $mjesecnaPrimanja) {
+        $this->setId($id);
+        $this->setIme($ime);
+        $this->setPrezime($prezime);
+        $this->setDatumRodenja($datumRodenja);
+        $this->setSpol($spol);
+        $this->setMjesecnaPrimanja($mjesecnaPrimanja);
 
+        return Zaposlenik::$sviZaposlenici[]= $this;
+
+    }
 
     /**
      * @return mixed
