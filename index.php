@@ -35,11 +35,14 @@ while ($bool) {
             }
         case 3:
             {
-
+                echo Zaposlenik::$sviZaposlenici[0]->id;
+                break;
             }
         case 4:
             {
-
+                echo "Upišite ID zaposlenika kojeg želite obrisati: \n";
+                brisanjeZaposlenika(fgets(STDIN));
+                break;
             }
         case 5:
             {
@@ -87,6 +90,17 @@ function unosZaposlenika(){
     new Zaposlenik($id, $ime, $prezime, $datumRodenja, $spol, $mjesecnaPrimanja);
 }
 
+function brisanjeZaposlenika($zaposlenik){
+    for($i=0;$i<=count(Zaposlenik::$sviZaposlenici);$i++){
+        if(isset(Zaposlenik::$sviZaposlenici[$i]) && Zaposlenik::$sviZaposlenici[$i]->id===$zaposlenik){
+            Zaposlenik::$sviZaposlenici[$i]=null;
+            unset(Zaposlenik::$sviZaposlenici[$i]);
+
+        }
+    }
+    Zaposlenik::$sviZaposlenici = array_values(Zaposlenik::$sviZaposlenici);
+    return Zaposlenik::$sviZaposlenici;
+}
 
 
 
