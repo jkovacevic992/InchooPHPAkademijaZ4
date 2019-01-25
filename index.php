@@ -90,7 +90,7 @@ function unosZaposlenika(){
     echo "Prezime: ";
     $prezime = fgets(STDIN);
     echo "Datum rođenja: ";
-    $datumRodenja = fgets(STDIN);
+    $datumRodenja = date("d.m.Y", strtotime(fgets(STDIN)) );
     echo "Spol: ";
     $spol = fgets(STDIN);
     echo "Mjesečna primanja: ";
