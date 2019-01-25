@@ -3,12 +3,12 @@
 
 class Zaposlenik
 {
-    private $id;
-    private $ime;
-    private $prezime;
-    private $datumRodenja;
-    private $spol;
-    private $mjesecnaPrimanja;
+    public $id;
+    public $ime;
+    public $prezime;
+    public $datumRodenja;
+    public $spol;
+    public $mjesecnaPrimanja;
 
 
     public static $sviZaposlenici = array();
