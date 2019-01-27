@@ -1,7 +1,9 @@
 <?php
 require 'Zaposlenik.php';
 
+$zaposleniciArray = [];
 $bool = true;
+
 while ($bool) {
 
     ispisiIzbornik();
@@ -19,7 +21,7 @@ while ($bool) {
         case 1:
             {
 
-                print_r(Zaposlenik::$sviZaposlenici);
+                print_r($zaposleniciArray);
                 echo "Želite li se vratiti na izbornik? (DA/NE)\n";
                 if (strtolower(trim(fgets(STDIN))) !== 'da') {
                     $bool = false;
@@ -30,12 +32,13 @@ while ($bool) {
         case 2:
             {
                 echo "Upišite sve potrebne podatke: \n";
-                unosZaposlenika();
+                $zaposleniciArray[] = unosZaposlenika();
+                var_dump($zaposleniciArray);
                 break;
             }
         case 3:
             {
-                echo Zaposlenik::$sviZaposlenici[0]->id;
+
                 break;
             }
         case 4:
@@ -46,8 +49,6 @@ while ($bool) {
 
                 if(readline() !== 'da'){
                     echo "Zaposlenik nije obrisan.\n";
-                }else{
-                    brisanjeZaposlenika($temp);
                 }
 
                 break;
@@ -83,6 +84,7 @@ function ispisiIzbornik()
 }
 
 function unosZaposlenika(){
+
     echo "ID: ";
     $id = fgets(STDIN);
     echo "Ime: ";
@@ -95,21 +97,21 @@ function unosZaposlenika(){
     $spol = fgets(STDIN);
     echo "Mjesečna primanja: ";
     $mjesecnaPrimanja = fgets(STDIN);
-    new Zaposlenik($id, $ime, $prezime, $datumRodenja, $spol, $mjesecnaPrimanja);
+    return new Zaposlenik($id, $ime, $prezime, $datumRodenja, $spol, $mjesecnaPrimanja);
+
 }
 
-function brisanjeZaposlenika($zaposlenik){
-    for($i=0;$i<=count(Zaposlenik::$sviZaposlenici);$i++){
-        if(isset(Zaposlenik::$sviZaposlenici[$i]) && Zaposlenik::$sviZaposlenici[$i]->id===$zaposlenik){
-            Zaposlenik::$sviZaposlenici[$i]=null;
-            unset(Zaposlenik::$sviZaposlenici[$i]);
-
-        }
-    }
-    Zaposlenik::$sviZaposlenici = array_values(Zaposlenik::$sviZaposlenici);
-    return Zaposlenik::$sviZaposlenici;
-}
-
+//
+//function brisanjeZaposlenika($array,$zaposlenikId){
+//    for($i=0;$i<=count($array);$i++){
+//        if(isset($array[$i]) && $array[$i]->getId()===$zaposlenikId){
+//            $array[$i]= null;
+//            unset($array[$i]);
+//        }
+//    }
+//    $array = array_values($array);
+//    return $array;
+//}
 
 
 

@@ -3,15 +3,14 @@
 
 class Zaposlenik
 {
-    public $id;
-    public $ime;
-    public $prezime;
-    public $datumRodenja;
-    public $spol;
-    public $mjesecnaPrimanja;
+    protected $id;
+    protected $ime;
+    protected $prezime;
+    protected $datumRodenja;
+    protected $spol;
+    protected $mjesecnaPrimanja;
 
 
-    public static $sviZaposlenici = array();
     function __construct($id,$ime,$prezime, $datumRodenja, $spol, $mjesecnaPrimanja) {
         $this->setId($id);
         $this->setIme($ime);
@@ -20,7 +19,7 @@ class Zaposlenik
         $this->setSpol($spol);
         $this->setMjesecnaPrimanja($mjesecnaPrimanja);
 
-        return Zaposlenik::$sviZaposlenici[]= $this;
+
 
     }
 
