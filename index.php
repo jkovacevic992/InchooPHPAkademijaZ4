@@ -40,6 +40,7 @@ while ($bool) {
             {
                 echo "Upišite ID zaposlenika čije podatke želite mijenjati\n";
                 $temp = fgets(STDIN);
+
                 $zaposleniciArray= promjenaZaposlenika($zaposleniciArray, $temp);
 
                 break;
@@ -117,7 +118,7 @@ function unosZaposlenika($array = null)
     echo "Spol: ";
     $spol = readline();
     echo "Mjesečna primanja: ";
-    $mjesecnaPrimanja = readline();
+    $mjesecnaPrimanja = kontrolaMjesecnoPrimanje(readline());
 
     return new Zaposlenik($id, $ime, $prezime, $datumRodenja, $spol, $mjesecnaPrimanja);
 
@@ -127,29 +128,7 @@ function unosZaposlenika($array = null)
 
 
 }
-function kontrolaImenaIPrezimena($var)
-{
-    if($var==="" || preg_match('~[0-9]+~', $var)){
-        echo "Ime/prezime ne može biti prazno i sadržavati brojeve.\nUnesite novo ime/prezime:\n";
 
-        return kontrolaImenaIPrezimena(readline());
-    }else{
-        return $var;
-    }
-
-
-}
-function kontrolaId($var,$array)
-{
-    for($i=0;$i<count($array);$i++){
-        if($array[$i]->id===$var){
-            echo "Zaposlenik s istim ID-em već postoji.\nUnesite novi ID:\n";
-            return kontrolaId(readline(),$array);
-
-        }
-    }
-    return $var;
-}
 
 
 function brisanjeZaposlenika($array,$zaposlenikId)
@@ -242,5 +221,41 @@ function ispisiIzbornikStatistike()
     echo "Odaberite broj od 1 do 4.\n";
     echo "*************************************************\n";
 }
+function kontrolaImenaIPrezimena($var)
+{
+    if($var==="" || preg_match('~[0-9]+~', $var)){
+        echo "Ime/prezime ne može biti prazno i sadržavati brojeve.\nUnesite novo ime/prezime:\n";
 
+        return kontrolaImenaIPrezimena(readline());
+    }else{
+        return $var;
+    }
+
+
+}
+function kontrolaId($var,$array)
+{
+    for($i=0;$i<count($array);$i++){
+        if($array[$i]->id===$var){
+            echo "Zaposlenik s istim ID-em već postoji.\nUnesite novi ID:\n";
+            return kontrolaId(readline(),$array);
+
+        }
+    }
+    return $var;
+}
+
+function kontrolaMjesecnoPrimanje($var)
+{
+    var_dump($var);
+    $var = floatval(str_replace(",",".",$var));
+    var_dump($var);
+    if($var==="" || !is_float($var) || $var<=0){
+        echo "Mjesečno primanje mora biti decimalan broj veći od 0.\nUnesite novu vrijednost:\n";
+
+        return kontrolaMjesecnoPrimanje(readline());
+    }else{
+        return number_format($var,2,'.','');
+    }
+}
 
