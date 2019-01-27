@@ -20,8 +20,16 @@ while ($bool) {
 
         case 1:
             {
-
-                print_r($zaposleniciArray);
+                echo "*************************************************\n";
+                for($i=0;$i<count($zaposleniciArray);$i++){
+                    echo "ID: ".$zaposleniciArray[$i]->id;
+                    echo "IME: ".$zaposleniciArray[$i]->ime;
+                    echo "PREZIME: ".$zaposleniciArray[$i]->prezime;
+                    echo "DATUM ROĐENJA: ".$zaposleniciArray[$i]->datumRodenja;
+                    echo "SPOL: ".$zaposleniciArray[$i]->spol;
+                    echo "MJESEČNA PRIMANJA: ".$zaposleniciArray[$i]->mjesecnaPrimanja;
+                    echo "*************************************************\n";
+                }
                 echo "Želite li se vratiti na izbornik? (DA/NE)\n";
                 if (strtolower(trim(fgets(STDIN))) !== 'da') {
                     $bool = false;
@@ -33,7 +41,7 @@ while ($bool) {
             {
                 echo "Upišite sve potrebne podatke: \n";
                 $zaposleniciArray[] = unosZaposlenika();
-                var_dump($zaposleniciArray);
+
                 break;
             }
         case 3:
@@ -92,7 +100,7 @@ function unosZaposlenika(){
     echo "Prezime: ";
     $prezime = fgets(STDIN);
     echo "Datum rođenja: ";
-    $datumRodenja = date("d.m.Y", strtotime(fgets(STDIN)) );
+    $datumRodenja = fgets(STDIN);
     echo "Spol: ";
     $spol = fgets(STDIN);
     echo "Mjesečna primanja: ";
