@@ -39,7 +39,7 @@ while ($bool) {
         case 3:
             {
                 echo "Upišite ID zaposlenika čije podatke želite mijenjati\n";
-                $temp = fgets(STDIN);
+                $temp = readline();
 
                 $zaposleniciArray= promjenaZaposlenika($zaposleniciArray, $temp);
 
@@ -126,7 +126,6 @@ function unosZaposlenika($array = null)
 
 
 
-
 }
 
 
@@ -134,7 +133,8 @@ function unosZaposlenika($array = null)
 function brisanjeZaposlenika($array,$zaposlenikId)
 {
     for($i=0;$i<=count($array);$i++){
-        if(isset($array[$i]) && $array[$i]->id===$zaposlenikId){
+
+        if(isset($array[$i]) && $array[$i]->getId()===$zaposlenikId){
             $array[$i]= null;
             unset($array[$i]);
 
@@ -147,8 +147,8 @@ function brisanjeZaposlenika($array,$zaposlenikId)
 function promjenaZaposlenika($array,$zaposlenikId)
 {
 
-    for ($i = 0; $i <= count($array); $i++) {
-        if ($array[$i]->id !== $zaposlenikId) {
+    for ($i = 0; $i < count($array); $i++) {
+        if ($array[$i]->getId() !== $zaposlenikId) {
             echo "Zaposlenik s tim ID-em ne postoji.";
             break;
 
@@ -161,49 +161,49 @@ function promjenaZaposlenika($array,$zaposlenikId)
             echo "4. DATUM ROĐENJA\n";
             echo "5. SPOL\n";
             echo "6. MJESEČNA PRIMANJA\n";
-            switch (fgets(STDIN)) {
+            switch (readline()) {
                 case 1:
                     {
-                        echo "Stara vrijednost ID-a je ". $array[$i]->id . "\n";
+                        echo "Stara vrijednost ID-a je ". $array[$i]->getId() . "\n";
                         echo "Unesite novu vrijednost:\n";
-                        $array[$i]->id= fgets(STDIN);
-                    break;
+                        $array[$i]->setId(readline());
+                        break;
                 }
                 case 2:
                     {
-                        echo "Staro ime je ". $array[$i]->ime . "\n";
+                        echo "Staro ime je ". $array[$i]->getIme() . "\n";
                         echo "Unesite novu vrijednost:\n";
-                        $array[$i]->ime= fgets(STDIN);
+                        $array[$i]->setIme(readline());
                         break;
                     }
                 case 3:
                     {
-                        echo "Staro prezime je ". $array[$i]->prezime . "\n";
+                        echo "Staro prezime je ". $array[$i]->getPrezime() . "\n";
                         echo "Unesite novu vrijednost:\n";
-                        $array[$i]->prezime= fgets(STDIN);
+                        $array[$i]->setPrezime(readline());
                         break;
                     }
                 case 4:
                     {
-                        echo "Stari datum rođenja je ". $array[$i]->datumRodenja . "\n";
+                        echo "Stari datum rođenja je ". $array[$i]->getDatumRodenja() . "\n";
                         echo "Unesite novu vrijednost:\n";
-                        $array[$i]->datumRodenja= fgets(STDIN);
+                        $array[$i]->setDatumRodenja(readline());
                         break;
 
                     }
                 case 5:
                     {
-                        echo "Stari spol je ". $array[$i]->spol . "\n";
+                        echo "Stari spol je ". $array[$i]->getSpol() . "\n";
                         echo "Unesite novu vrijednost:\n";
-                        $array[$i]->spol= fgets(STDIN);
+                        $array[$i]->setSpol(readline());
                         break;
                     }
                 case 6:
                     {
-                        echo "Stari iznos mjesečnih primanja je  ". $array[$i]->mjesecnaPrimanja . "\n";
+                        echo "Stari iznos mjesečnih primanja je  ". $array[$i]->getMjesecnaPrimanja() . "\n";
                         echo "Unesite novu vrijednost:\n";
-                        $array[$i]->mjesecnaPrimanja= fgets(STDIN);
-
+                        $array[$i]->setMjesecnaPrimanja(readline());
+                        break;
                     }
             }
         }

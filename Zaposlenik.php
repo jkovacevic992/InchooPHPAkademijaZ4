@@ -3,26 +3,25 @@
 
 class Zaposlenik
 {
-    public $id;
-    public $ime;
-    public $prezime;
-    public $datumRodenja;
-    public $spol;
-    public $mjesecnaPrimanja;
+    protected $id;
+    protected $ime;
+    protected $prezime;
+    protected $datumRodenja;
+    protected $spol;
+    protected $mjesecnaPrimanja;
 
 
     function __construct($id,$ime,$prezime, $datumRodenja, $spol, $mjesecnaPrimanja) {
-        $this->setId($id);
-        $this->setIme($ime);
-        $this->setPrezime($prezime);
-        $this->setDatumRodenja($datumRodenja);
-        $this->setSpol($spol);
-        $this->setMjesecnaPrimanja($mjesecnaPrimanja);
+        $this->id=$id;
+        $this->ime=$ime;
+        $this->prezime=$prezime;
+        $this->datumRodenja=$datumRodenja;
+        $this->spol=$spol;
+        $this->mjesecnaPrimanja=$mjesecnaPrimanja;
 
 
 
     }
-
 
     /**
      * @return mixed
@@ -53,10 +52,7 @@ class Zaposlenik
      */
     public function setIme($ime)
     {
-
-            $this->ime = $ime;
-
-
+        $this->ime = $ime;
     }
 
     /**
@@ -122,5 +118,8 @@ class Zaposlenik
     {
         $this->mjesecnaPrimanja = $mjesecnaPrimanja;
     }
+
+
+
 
 }
