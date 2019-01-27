@@ -32,7 +32,7 @@ while ($bool) {
         case 2:
             {
                 echo "Upišite sve potrebne podatke: \n";
-                $zaposleniciArray[] = unosZaposlenika();
+                $zaposleniciArray[] = unosZaposlenika($zaposleniciArray);
 
                 break;
             }
@@ -103,21 +103,21 @@ function ispisZaposlenika($array)
     }
 }
 
-function unosZaposlenika()
+function unosZaposlenika($array = null)
 {
 
     echo "ID: ";
-    $id = readline();
+    $id = kontrolaId(readline(),$array);
     echo "Ime: ";
     $ime = kontrolaImenaIPrezimena(readline());
     echo "Prezime: ";
     $prezime = kontrolaImenaIPrezimena(readline());
     echo "Datum rođenja: ";
-    $datumRodenja = fgets(STDIN);
+    $datumRodenja = readline();
     echo "Spol: ";
-    $spol = fgets(STDIN);
+    $spol = readline();
     echo "Mjesečna primanja: ";
-    $mjesecnaPrimanja = fgets(STDIN);
+    $mjesecnaPrimanja = readline();
 
     return new Zaposlenik($id, $ime, $prezime, $datumRodenja, $spol, $mjesecnaPrimanja);
 
@@ -138,6 +138,17 @@ function kontrolaImenaIPrezimena($var)
     }
 
 
+}
+function kontrolaId($var,$array)
+{
+    for($i=0;$i<count($array);$i++){
+        if($array[$i]->id===$var){
+            echo "Zaposlenik s istim ID-em već postoji.\nUnesite novi ID:\n";
+            return kontrolaId(readline(),$array);
+
+        }
+    }
+    return $var;
 }
 
 
