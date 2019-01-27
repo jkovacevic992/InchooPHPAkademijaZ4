@@ -20,16 +20,8 @@ while ($bool) {
 
         case 1:
             {
-                echo "*************************************************\n";
-                for ($i = 0; $i < count($zaposleniciArray); $i++) {
-                    echo "ID: " . $zaposleniciArray[$i]->id;
-                    echo "IME: " . $zaposleniciArray[$i]->ime;
-                    echo "PREZIME: " . $zaposleniciArray[$i]->prezime;
-                    echo "DATUM ROĐENJA: " . $zaposleniciArray[$i]->datumRodenja;
-                    echo "SPOL: " . $zaposleniciArray[$i]->spol;
-                    echo "MJESEČNA PRIMANJA: " . $zaposleniciArray[$i]->mjesecnaPrimanja;
-                    echo "*************************************************\n";
-                }
+//                ispisZaposlenika($zaposleniciArray);
+                var_dump($zaposleniciArray);
                 echo "Želite li se vratiti na izbornik? (DA/NE)\n";
                 if (strtolower(trim(fgets(STDIN))) !== 'da') {
                     $bool = false;
@@ -68,7 +60,7 @@ while ($bool) {
             }
         case 5:
             {
-
+                ispisiIzbornikStatistike();
             }
         case 6:
             {
@@ -82,6 +74,7 @@ while ($bool) {
 
 
 }
+
 function ispisiIzbornik()
 {
 
@@ -96,22 +89,54 @@ function ispisiIzbornik()
     echo "*************************************************\n";
 }
 
+function ispisZaposlenika($array)
+{
+    echo "*************************************************\n";
+    for ($i = 0; $i < count($array); $i++) {
+        echo "ID: " . $array[$i]->id;
+        echo "IME: " . $array[$i]->ime;
+        echo "PREZIME: " . $array[$i]->prezime;
+        echo "DATUM ROĐENJA: " . $array[$i]->datumRodenja;
+        echo "SPOL: " . $array[$i]->spol;
+        echo "MJESEČNA PRIMANJA: " . $array[$i]->mjesecnaPrimanja;
+        echo "*************************************************\n";
+    }
+}
+
 function unosZaposlenika()
 {
 
     echo "ID: ";
-    $id = fgets(STDIN);
+    $id = readline();
     echo "Ime: ";
-    $ime = fgets(STDIN);
+    $ime = kontrolaImenaIPrezimena(readline());
     echo "Prezime: ";
-    $prezime = fgets(STDIN);
+    $prezime = kontrolaImenaIPrezimena(readline());
     echo "Datum rođenja: ";
     $datumRodenja = fgets(STDIN);
     echo "Spol: ";
     $spol = fgets(STDIN);
     echo "Mjesečna primanja: ";
     $mjesecnaPrimanja = fgets(STDIN);
+
     return new Zaposlenik($id, $ime, $prezime, $datumRodenja, $spol, $mjesecnaPrimanja);
+
+
+
+
+
+
+}
+function kontrolaImenaIPrezimena($var)
+{
+    if($var==="" || preg_match('~[0-9]+~', $var)){
+        echo "Ime/prezime ne može biti prazno i sadržavati brojeve.\nUnesite novo ime/prezime:\n";
+
+        return kontrolaImenaIPrezimena(readline());
+    }else{
+        return $var;
+    }
+
 
 }
 
@@ -196,5 +221,15 @@ function promjenaZaposlenika($array,$zaposlenikId)
     return $array;
 }
 
+function ispisiIzbornikStatistike()
+{
+    echo "*************************************************\n";
+    echo "1. Ukupna starost\n";
+    echo "2. Prosječna starost \n";
+    echo "3. Ukupna primanja\n";
+    echo "4. Prosječna primanja\n";
+    echo "Odaberite broj od 1 do 4.\n";
+    echo "*************************************************\n";
+}
 
 

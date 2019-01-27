@@ -53,11 +53,9 @@ class Zaposlenik
      */
     public function setIme($ime)
     {
-        if(is_numeric($ime) || $ime === ''){
-            echo 'Ime može sadržavati samo slova.';
-        }else{
+
             $this->ime = $ime;
-        }
+
 
     }
 
