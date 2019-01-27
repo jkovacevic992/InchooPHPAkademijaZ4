@@ -265,13 +265,15 @@ function kontrolaMjesecnoPrimanje($var)
 
 function kontrolaDatum($var)
 {
-    if($var==="" || preg_match("/^[a-zA-Z]+$/", $var)){
+    $format = "d.m.Y";
+    $d = DateTime::createFromFormat($format, $var);
+    if($var==="" || preg_match("/^[a-zA-Z]+$/", $var) || $d->format($format)!==$var){
         echo "Morate upisati datum formata dd.mm.yyyy.\nUnesite novu vrijednost:\n";
 
         return kontrolaDatum(readline());
     }else{
 
-        return date("d.m.Y", strtotime($var));
+        return $var;
     }
 
 }
