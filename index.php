@@ -116,7 +116,7 @@ function unosZaposlenika($array = null)
     echo "Datum rođenja (dd.mm.yyyy): ";
     $datumRodenja = kontrolaDatum(readline());
     echo "Spol: ";
-    $spol = readline();
+    $spol = kontrolaSpol(readline());
     echo "Mjesečna primanja: ";
     $mjesecnaPrimanja = kontrolaMjesecnoPrimanje(readline());
 
@@ -265,8 +265,10 @@ function kontrolaMjesecnoPrimanje($var)
 
 function kontrolaDatum($var)
 {
+    $var = str_replace(["-","/","'\'"], ".",$var);
     $format = "d.m.Y";
     $d = DateTime::createFromFormat($format, $var);
+
     if($var==="" || preg_match("/^[a-zA-Z]+$/", $var) || $d->format($format)!==$var){
         echo "Morate upisati datum formata dd.mm.yyyy.\nUnesite novu vrijednost:\n";
 
@@ -276,5 +278,18 @@ function kontrolaDatum($var)
         return $var;
     }
 
+}
+
+function kontrolaSpol($var)
+{
+    var_dump($var);
+    if($var==="" || ($var !== "muški" && $var !== "ženski")){
+        echo "Spol može biti muški ili ženski.\nUnesite novu vrijednost:\n";
+
+        return kontrolaSpol(readline());
+    }else{
+
+        return $var;
+    }
 }
 
