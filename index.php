@@ -20,8 +20,8 @@ while ($bool) {
 
         case 1:
             {
-//                ispisZaposlenika($zaposleniciArray);
-                var_dump($zaposleniciArray);
+                ispisiZaposlenike($zaposleniciArray);
+
                 echo "Želite li se vratiti na izbornik? (DA/NE)\n";
                 if (strtolower(trim(fgets(STDIN))) !== 'da') {
                     $bool = false;
@@ -94,12 +94,12 @@ function ispisiZaposlenike($array)
 {
     echo "*************************************************\n";
     for ($i = 0; $i < count($array); $i++) {
-        echo "ID: " . $array[$i]->id;
-        echo "IME: " . $array[$i]->ime;
-        echo "PREZIME: " . $array[$i]->prezime;
-        echo "DATUM ROĐENJA: " . $array[$i]->datumRodenja;
-        echo "SPOL: " . $array[$i]->spol;
-        echo "MJESEČNA PRIMANJA: " . $array[$i]->mjesecnaPrimanja;
+        echo "ID: " . $array[$i]->getId() . "\n";
+        echo "IME: " . $array[$i]->getIme(). "\n";
+        echo "PREZIME: " . $array[$i]->getPrezime()."\n";
+        echo "DATUM ROĐENJA: " . $array[$i]->getDatumRodenja()."\n";
+        echo "SPOL: " . $array[$i]->getSpol()."\n";
+        echo "MJESEČNA PRIMANJA: " . $array[$i]->getMjesecnaPrimanja()."\n";
         echo "*************************************************\n";
     }
 }
