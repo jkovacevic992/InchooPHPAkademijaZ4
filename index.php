@@ -48,7 +48,7 @@ while ($bool) {
         case 4:
             {
                 echo "Upišite ID zaposlenika kojeg želite obrisati: \n";
-                $temp = fgets(STDIN);
+                $temp = readline();
                 echo "Jeste li sigurni da želite obrisati polaznika s ID-em $temp? (DA/NE)\n";
 
                 if (readline() !== 'da') {
@@ -90,7 +90,7 @@ function ispisiIzbornik()
     echo "*************************************************\n";
 }
 
-function ispisZaposlenika($array)
+function ispisiZaposlenike($array)
 {
     echo "*************************************************\n";
     for ($i = 0; $i < count($array); $i++) {
@@ -113,8 +113,8 @@ function unosZaposlenika($array = null)
     $ime = kontrolaImenaIPrezimena(readline());
     echo "Prezime: ";
     $prezime = kontrolaImenaIPrezimena(readline());
-    echo "Datum rođenja: ";
-    $datumRodenja = readline();
+    echo "Datum rođenja (dd.mm.yyyy): ";
+    $datumRodenja = kontrolaDatum(readline());
     echo "Spol: ";
     $spol = readline();
     echo "Mjesečna primanja: ";
@@ -235,8 +235,12 @@ function kontrolaImenaIPrezimena($var)
 }
 function kontrolaId($var,$array)
 {
+    if($var===""){
+        echo "Morate unijeti ID.\nUnesite novi ID:\n";
+        return kontrolaId(readline(),$array);
+    }
     for($i=0;$i<count($array);$i++){
-        if($array[$i]->id===$var){
+        if($array[$i]->id===$var ){
             echo "Zaposlenik s istim ID-em već postoji.\nUnesite novi ID:\n";
             return kontrolaId(readline(),$array);
 
@@ -257,5 +261,18 @@ function kontrolaMjesecnoPrimanje($var)
     }else{
         return number_format($var,2,'.','');
     }
+}
+
+function kontrolaDatum($var)
+{
+    if($var==="" || preg_match("/^[a-zA-Z]+$/", $var)){
+        echo "Morate upisati datum formata dd.mm.yyyy.\nUnesite novu vrijednost:\n";
+
+        return kontrolaDatum(readline());
+    }else{
+
+        return date("d.m.Y", strtotime($var));
+    }
+
 }
 
