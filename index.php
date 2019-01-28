@@ -4,8 +4,10 @@ require 'Zaposlenik.php';
 $zaposleniciArray = [];
 $bool = true;
 
-$zaposleniciArray[] = new Zaposlenik(1,"josip","kovačević",'17.01.1992',"muški",545.45);
-$zaposleniciArray[] = new Zaposlenik(2,"mirko","kovačević",'17.01.2000',"ženski",200000);
+$zaposleniciArray[] = new Zaposlenik(1,"josip","kovačević",'17.01.1992',"muški",123545.45);
+$zaposleniciArray[] = new Zaposlenik(2,"mirko","kovačević",'17.01.2000',"ženski",20000);
+$zaposleniciArray[] = new Zaposlenik(3,"mirko","kovačević",'17.01.2000',"ženski",100);
+$zaposleniciArray[] = new Zaposlenik(4,"mirko","kovačević",'17.01.2000',"muški",554.55);
 while ($bool) {
 
     ispisiIzbornik();
@@ -314,6 +316,7 @@ function ispisiStatistiku($var, $array = null)
             }
         case 4:
             {
+                prosjecnaPrimanja($array);
                 break;
             }
         default:
@@ -412,5 +415,28 @@ try{
     $exception->getMessage();
 }
 
+}
+
+function prosjecnaPrimanja($array)
+{
+    $ukupnaPrimanjaMuskih = 0;
+    $ukupnaPrimanjaZenskih = 0;
+    $brojMuskih = 0;
+    $brojZenskih = 0;
+    for ($i = 0; $i < count($array); $i++){
+        if($array[$i]->getSpol() === "muški"){
+            $brojMuskih++;
+            $ukupnaPrimanjaMuskih += $array[$i]->getMjesecnaPrimanja();
+        }else{
+            $brojZenskih++;
+            $ukupnaPrimanjaZenskih += $array[$i]->getMjesecnaPrimanja();
+        }
+    }
+    $veci = $ukupnaPrimanjaMuskih/$brojMuskih < $ukupnaPrimanjaZenskih/$brojZenskih ? $ukupnaPrimanjaZenskih/$brojZenskih : $ukupnaPrimanjaMuskih/$brojMuskih;
+    $manji = $ukupnaPrimanjaMuskih/$brojMuskih < $ukupnaPrimanjaZenskih/$brojZenskih ? $ukupnaPrimanjaMuskih/$brojMuskih : $ukupnaPrimanjaZenskih/$brojZenskih;
+  
+    echo "Prosječna primanja muških osoba: " . $ukupnaPrimanjaMuskih/$brojMuskih . "\n";
+    echo "Prosječna primanja ženskih osoba: " . $ukupnaPrimanjaZenskih/$brojZenskih . "\n";
+    echo "Razlika u prosječnim primanjima muških i ženskih osoba: " . number_format($veci-$manji,2, '.', '') . "\n";
 }
 
