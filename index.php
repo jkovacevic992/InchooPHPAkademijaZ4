@@ -434,7 +434,7 @@ function prosjecnaPrimanja($array)
     }
     $veci = $ukupnaPrimanjaMuskih/$brojMuskih < $ukupnaPrimanjaZenskih/$brojZenskih ? $ukupnaPrimanjaZenskih/$brojZenskih : $ukupnaPrimanjaMuskih/$brojMuskih;
     $manji = $ukupnaPrimanjaMuskih/$brojMuskih < $ukupnaPrimanjaZenskih/$brojZenskih ? $ukupnaPrimanjaMuskih/$brojMuskih : $ukupnaPrimanjaZenskih/$brojZenskih;
-  
+
     echo "Prosječna primanja muških osoba: " . $ukupnaPrimanjaMuskih/$brojMuskih . "\n";
     echo "Prosječna primanja ženskih osoba: " . $ukupnaPrimanjaZenskih/$brojZenskih . "\n";
     echo "Razlika u prosječnim primanjima muških i ženskih osoba: " . number_format($veci-$manji,2, '.', '') . "\n";
