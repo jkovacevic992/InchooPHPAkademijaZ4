@@ -4,6 +4,8 @@ require 'Zaposlenik.php';
 $zaposleniciArray = [];
 $bool = true;
 
+$zaposleniciArray[] = new Zaposlenik(1,"josip","kovačević",'17.01.1992',"muški",545.45);
+$zaposleniciArray[] = new Zaposlenik(2,"mirko","kovačević",'17.01.2000',"ženski",200000);
 while ($bool) {
 
     ispisiIzbornik();
@@ -297,6 +299,7 @@ function ispisiStatistiku($var, $array = null)
     switch ($var) {
         case 1:
             {
+//                ukupnaStarost($array);
                 break;
             }
         case 2:
@@ -306,6 +309,7 @@ function ispisiStatistiku($var, $array = null)
             }
         case 3:
             {
+                ukupnaPrimanja($array);
                 break;
             }
         case 4:
@@ -336,8 +340,77 @@ function prosjecnaStarost($array)
         echo $exception->getMessage();
     }
 
-    $age /= count($array);
-    echo "Prosječna starost svih zaposlenika je " . $age . " god.\n";
+        $age /= count($array);
+        echo "Prosječna starost svih zaposlenika je " . $age . " god.\n";
+
+
+
+}
+
+//function ukupnaStarost($array)
+//{
+//
+//    try {
+//        $age = new DateTime('00.00.0000');
+//        $do = new DateTime();
+//        for ($i = 0; $i < count($array); $i++) {
+//            $od = new DateTime($array[$i]->getDatumRodenja());
+//
+//            $difference = $do->diff($od);
+//            var_dump($difference);
+//            date_add($age,$difference);
+//            var_dump($age);
+//        }
+//
+//
+//    } catch (Exception $exception) {
+//        echo $exception->getMessage();
+//    }
+//
+//}
+
+function ukupnaPrimanja($array)
+{
+try{
+    $ukupnoDoDvadeset = 0;
+    $ukupnoDvadesetTrideset = 0;
+    $ukupnoTridesetCetrdeset = 0;
+    $ukupnoOdCetrdeset = 0;
+    $do = new DateTime();
+    for ($i = 0; $i < count($array); $i++) {
+        $od = new DateTime($array[$i]->getDatumRodenja());
+        $difference = $do->diff($od);
+        $age = $difference->y;
+
+        switch ($age){
+            case ($age<20):{
+                $ukupnoDoDvadeset += $array[$i]->getMjesecnaPrimanja();
+                break;
+            }
+            case ($age>= 20 && $age<30):{
+
+                $ukupnoDvadesetTrideset += $array[$i]->getMjesecnaPrimanja();
+
+                break;
+            }
+            case ($age>= 30 && $age<40):{
+                $ukupnoTridesetCetrdeset += $array[$i]->getMjesecnaPrimanja();
+                break;
+            }
+            case ($age >= 40):{
+                $ukupnoOdCetrdeset += $array[$i]->getMjesecnaPrimanja();
+                break;
+            }
+        }
+
+    }
+    echo "Ukupna primanja osoba do 20 godina: ". number_format($ukupnoDoDvadeset, 2, '.', '')."\n";
+    echo "Ukupna primanja osoba između 20 i 30 godina: ". number_format($ukupnoDvadesetTrideset, 2, '.', '')."\n";
+    echo "Ukupna primanja osoba između 30 i 40 godina: ". number_format($ukupnoTridesetCetrdeset, 2, '.', '')."\n";
+    echo "Ukupna primanja osoba iznad 40 godina: ". number_format($ukupnoOdCetrdeset, 2, '.', '')."\n";
+}catch (Exception $exception){
+    $exception->getMessage();
+}
 
 }
 
