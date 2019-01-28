@@ -3,8 +3,8 @@ require 'Osoba.php';
 
 class Zaposlenik extends Osoba
 {
-    protected $id;
-    protected $mjesecnaPrimanja;
+    private $id;
+    private $mjesecnaPrimanja;
 
 
     function __construct($id,$ime,$prezime, $datumRodenja, $spol, $mjesecnaPrimanja) {
