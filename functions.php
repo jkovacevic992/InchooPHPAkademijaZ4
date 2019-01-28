@@ -51,6 +51,7 @@ function unosZaposlenika($array = null)
 
 function brisanjeZaposlenika($array, $zaposlenikId)
 {
+
     for ($i = 0; $i <= count($array); $i++) {
 
         if (isset($array[$i]) && $array[$i]->getId() === $zaposlenikId) {
@@ -274,19 +275,27 @@ function ukupnaStarost($array)
 {
 
     try {
-        $age = new DateTime('00.00.0000');
+
+        $ukupneGodine = 0;
+        $ukupniMjeseci = 0;
+        $ukupniDani = 0;
         $do = new DateTime();
         for ($i = 0; $i < count($array); $i++) {
             $od = new DateTime($array[$i]->getDatumRodenja());
-            $difference = $do->diff($od);
-            //not sure why date_add was going into negative values here. date_sub fixed it!
-            date_sub($age, $difference);
+            $diff = $od->diff($do);
+            $ukupniDani += (int)$diff->format("%a");
+            $ukupneGodine += $diff->y;
+            $ukupniMjeseci += $diff->y*12;
+
+
+
+
 
         }
 
-        $rezultat = $age->format("y \g\. m \m\j\. d \d.");
-
-        echo "Ukupna starost svih zaposlenika je " . $rezultat . "\n";
+        echo "Ukupna starost zaposlenika izražena u godinama: $ukupneGodine god.\n";
+        echo "Ukupna starost zaposlenika izražena u mjesecima: $ukupniMjeseci mj.\n";
+        echo "Ukupna starost zaposlenika izražena u danima: $ukupniDani d.\n";
 
 
     } catch (Exception $exception) {

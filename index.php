@@ -5,7 +5,7 @@ require 'functions.php';
 $zaposleniciArray = [];
 $bool = true;
 
-$zaposleniciArray[] = new Zaposlenik(1,"josip","kovačević",'17.01.1994',"muški",123545.45);
+$zaposleniciArray[] = new Zaposlenik('1',"josip","kovačević",'17.01.1994',"muški",123545.45);
 $zaposleniciArray[] = new Zaposlenik(2,"mirko","kovačević",'1.01.1999',"ženski",20000);
 
 while ($bool) {
