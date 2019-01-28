@@ -41,7 +41,7 @@ while ($bool) {
                 echo "Upišite ID zaposlenika čije podatke želite mijenjati\n";
                 $temp = readline();
 
-                $zaposleniciArray= promjenaZaposlenika($zaposleniciArray, $temp);
+                $zaposleniciArray = promjenaZaposlenika($zaposleniciArray, $temp);
 
                 break;
             }
@@ -53,8 +53,8 @@ while ($bool) {
 
                 if (readline() !== 'da') {
                     echo "Zaposlenik nije obrisan.\n";
-                }else{
-                    $zaposleniciArray= brisanjeZaposlenika($zaposleniciArray,$temp);
+                } else {
+                    $zaposleniciArray = brisanjeZaposlenika($zaposleniciArray, $temp);
                 }
 
                 break;
@@ -62,6 +62,8 @@ while ($bool) {
         case 5:
             {
                 ispisiIzbornikStatistike();
+                ispisiStatistiku(readline(), $zaposleniciArray);
+                break;
             }
         case 6:
             {
@@ -95,11 +97,11 @@ function ispisiZaposlenike($array)
     echo "*************************************************\n";
     for ($i = 0; $i < count($array); $i++) {
         echo "ID: " . $array[$i]->getId() . "\n";
-        echo "IME: " . $array[$i]->getIme(). "\n";
-        echo "PREZIME: " . $array[$i]->getPrezime()."\n";
-        echo "DATUM ROĐENJA: " . $array[$i]->getDatumRodenja()."\n";
-        echo "SPOL: " . $array[$i]->getSpol()."\n";
-        echo "MJESEČNA PRIMANJA: " . $array[$i]->getMjesecnaPrimanja()."\n";
+        echo "IME: " . $array[$i]->getIme() . "\n";
+        echo "PREZIME: " . $array[$i]->getPrezime() . "\n";
+        echo "DATUM ROĐENJA: " . $array[$i]->getDatumRodenja() . "\n";
+        echo "SPOL: " . $array[$i]->getSpol() . "\n";
+        echo "MJESEČNA PRIMANJA: " . $array[$i]->getMjesecnaPrimanja() . "\n";
         echo "*************************************************\n";
     }
 }
@@ -108,7 +110,7 @@ function unosZaposlenika($array = null)
 {
 
     echo "ID: ";
-    $id = kontrolaId(readline(),$array);
+    $id = kontrolaId(readline(), $array);
     echo "Ime: ";
     $ime = kontrolaImenaIPrezimena(readline());
     echo "Prezime: ";
@@ -123,19 +125,15 @@ function unosZaposlenika($array = null)
     return new Zaposlenik($id, $ime, $prezime, $datumRodenja, $spol, $mjesecnaPrimanja);
 
 
-
-
-
 }
 
 
-
-function brisanjeZaposlenika($array,$zaposlenikId)
+function brisanjeZaposlenika($array, $zaposlenikId)
 {
-    for($i=0;$i<=count($array);$i++){
+    for ($i = 0; $i <= count($array); $i++) {
 
-        if(isset($array[$i]) && $array[$i]->getId()===$zaposlenikId){
-            $array[$i]= null;
+        if (isset($array[$i]) && $array[$i]->getId() === $zaposlenikId) {
+            $array[$i] = null;
             unset($array[$i]);
 
         }
@@ -144,7 +142,7 @@ function brisanjeZaposlenika($array,$zaposlenikId)
     return $array;
 }
 
-function promjenaZaposlenika($array,$zaposlenikId)
+function promjenaZaposlenika($array, $zaposlenikId)
 {
 
     for ($i = 0; $i < count($array); $i++) {
@@ -160,28 +158,28 @@ function promjenaZaposlenika($array,$zaposlenikId)
             switch (readline()) {
                 case 1:
                     {
-                        echo "Stara vrijednost ID-a je ". $array[$i]->getId() . "\n";
+                        echo "Stara vrijednost ID-a je " . $array[$i]->getId() . "\n";
                         echo "Unesite novu vrijednost:\n";
-                        $array[$i]->setId(kontrolaId(readline(),$array));
+                        $array[$i]->setId(kontrolaId(readline(), $array));
                         break;
-                }
+                    }
                 case 2:
                     {
-                        echo "Staro ime je ". $array[$i]->getIme() . "\n";
+                        echo "Staro ime je " . $array[$i]->getIme() . "\n";
                         echo "Unesite novu vrijednost:\n";
                         $array[$i]->setIme(kontrolaImenaIPrezimena(readline()));
                         break;
                     }
                 case 3:
                     {
-                        echo "Staro prezime je ". $array[$i]->getPrezime() . "\n";
+                        echo "Staro prezime je " . $array[$i]->getPrezime() . "\n";
                         echo "Unesite novu vrijednost:\n";
                         $array[$i]->setPrezime(kontrolaImenaIPrezimena(readline()));
                         break;
                     }
                 case 4:
                     {
-                        echo "Stari datum rođenja je ". $array[$i]->getDatumRodenja() . "\n";
+                        echo "Stari datum rođenja je " . $array[$i]->getDatumRodenja() . "\n";
                         echo "Unesite novu vrijednost:\n";
                         $array[$i]->setDatumRodenja(kontrolaDatum(readline()));
                         break;
@@ -189,14 +187,14 @@ function promjenaZaposlenika($array,$zaposlenikId)
                     }
                 case 5:
                     {
-                        echo "Stari spol je ". $array[$i]->getSpol() . "\n";
+                        echo "Stari spol je " . $array[$i]->getSpol() . "\n";
                         echo "Unesite novu vrijednost:\n";
                         $array[$i]->setSpol(kontrolaSpol(readline()));
                         break;
                     }
                 case 6:
                     {
-                        echo "Stari iznos mjesečnih primanja je  ". $array[$i]->getMjesecnaPrimanja() . "\n";
+                        echo "Stari iznos mjesečnih primanja je  " . $array[$i]->getMjesecnaPrimanja() . "\n";
                         echo "Unesite novu vrijednost:\n";
                         $array[$i]->setMjesecnaPrimanja(kontrolaMjesecnoPrimanje(readline()));
                         break;
@@ -205,6 +203,80 @@ function promjenaZaposlenika($array,$zaposlenikId)
         }
     }
     return $array;
+}
+
+
+function kontrolaImenaIPrezimena($var)
+{
+    if ($var === "" || preg_match('~[0-9]+~', $var)) {
+        echo "Ime/prezime ne može biti prazno i sadržavati brojeve.\nUnesite novo ime/prezime:\n";
+
+        return kontrolaImenaIPrezimena(readline());
+    } else {
+        return $var;
+    }
+
+
+}
+
+function kontrolaId($var, $array)
+{
+    if ($var === "") {
+        echo "Morate unijeti ID.\nUnesite novi ID:\n";
+        return kontrolaId(readline(), $array);
+    }
+    for ($i = 0; $i < count($array); $i++) {
+        if ($array[$i]->getId() === $var) {
+            echo "Zaposlenik s istim ID-em već postoji.\nUnesite novi ID:\n";
+            return kontrolaId(readline(), $array);
+
+        }
+    }
+    return $var;
+}
+
+function kontrolaMjesecnoPrimanje($var)
+{
+    var_dump($var);
+    $var = floatval(str_replace(",", ".", $var));
+    var_dump($var);
+    if ($var === "" || !is_float($var) || $var <= 0) {
+        echo "Mjesečno primanje mora biti decimalan broj veći od 0.\nUnesite novu vrijednost:\n";
+
+        return kontrolaMjesecnoPrimanje(readline());
+    } else {
+        return number_format($var, 2, '.', '');
+    }
+}
+
+function kontrolaDatum($var)
+{
+    $var = str_replace(["-", "/", "'\'"], ".", $var);
+    $format = "d.m.Y";
+    $d = DateTime::createFromFormat($format, $var);
+
+    if ($var === "" || preg_match("/^[a-zA-Z]+$/", $var) || $d->format($format) !== $var) {
+        echo "Morate upisati datum formata dd.mm.yyyy.\nUnesite novu vrijednost:\n";
+
+        return kontrolaDatum(readline());
+    } else {
+
+        return $var;
+    }
+
+}
+
+function kontrolaSpol($var)
+{
+
+    if ($var === "" || ($var !== "muški" && $var !== "ženski")) {
+        echo "Spol može biti muški ili ženski.\nUnesite novu vrijednost:\n";
+
+        return kontrolaSpol(readline());
+    } else {
+
+        return $var;
+    }
 }
 
 function ispisiIzbornikStatistike()
@@ -216,76 +288,56 @@ function ispisiIzbornikStatistike()
     echo "4. Prosječna primanja\n";
     echo "Odaberite broj od 1 do 4.\n";
     echo "*************************************************\n";
-}
-function kontrolaImenaIPrezimena($var)
-{
-    if($var==="" || preg_match('~[0-9]+~', $var)){
-        echo "Ime/prezime ne može biti prazno i sadržavati brojeve.\nUnesite novo ime/prezime:\n";
-
-        return kontrolaImenaIPrezimena(readline());
-    }else{
-        return $var;
-    }
 
 
 }
-function kontrolaId($var,$array)
+
+function ispisiStatistiku($var, $array = null)
 {
-    if($var===""){
-        echo "Morate unijeti ID.\nUnesite novi ID:\n";
-        return kontrolaId(readline(),$array);
+    switch ($var) {
+        case 1:
+            {
+                break;
+            }
+        case 2:
+            {
+                prosjecnaStarost($array);
+                break;
+            }
+        case 3:
+            {
+                break;
+            }
+        case 4:
+            {
+                break;
+            }
+        default:
+            {
+                echo "\n\nNiste odabrali ništa\n\n";
+            }
+
+
     }
-    for($i=0;$i<count($array);$i++){
-        if($array[$i]->getId()===$var ){
-            echo "Zaposlenik s istim ID-em već postoji.\nUnesite novi ID:\n";
-            return kontrolaId(readline(),$array);
+}
+
+function prosjecnaStarost($array)
+{
+    $age = 0;
+    try {
+        $do = new DateTime();
+        for ($i = 0; $i < count($array); $i++) {
+            $od = new DateTime($array[$i]->getDatumRodenja());
+            $difference = $do->diff($od);
+            $age += $difference->y;
 
         }
-    }
-    return $var;
-}
-
-function kontrolaMjesecnoPrimanje($var)
-{
-    var_dump($var);
-    $var = floatval(str_replace(",",".",$var));
-    var_dump($var);
-    if($var==="" || !is_float($var) || $var<=0){
-        echo "Mjesečno primanje mora biti decimalan broj veći od 0.\nUnesite novu vrijednost:\n";
-
-        return kontrolaMjesecnoPrimanje(readline());
-    }else{
-        return number_format($var,2,'.','');
-    }
-}
-
-function kontrolaDatum($var)
-{
-    $var = str_replace(["-","/","'\'"], ".",$var);
-    $format = "d.m.Y";
-    $d = DateTime::createFromFormat($format, $var);
-
-    if($var==="" || preg_match("/^[a-zA-Z]+$/", $var) || $d->format($format)!==$var){
-        echo "Morate upisati datum formata dd.mm.yyyy.\nUnesite novu vrijednost:\n";
-
-        return kontrolaDatum(readline());
-    }else{
-
-        return $var;
+    } catch (Exception $exception) {
+        echo $exception->getMessage();
     }
 
-}
+    $age /= count($array);
+    echo "Prosječna starost svih zaposlenika je " . $age . " god.\n";
 
-function kontrolaSpol($var)
-{
-    var_dump($var);
-    if($var==="" || ($var !== "muški" && $var !== "ženski")){
-        echo "Spol može biti muški ili ženski.\nUnesite novu vrijednost:\n";
-
-        return kontrolaSpol(readline());
-    }else{
-
-        return $var;
-    }
 }
 
