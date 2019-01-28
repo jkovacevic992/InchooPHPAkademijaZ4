@@ -17,12 +17,12 @@ function ispisiZaposlenike($array)
 {
     echo "*************************************************\n";
     for ($i = 0; $i < count($array); $i++) {
-        echo "ID: " . $array[$i]->getId() . "\n";
-        echo "IME: " . $array[$i]->getIme() . "\n";
-        echo "PREZIME: " . $array[$i]->getPrezime() . "\n";
-        echo "DATUM ROĐENJA: " . $array[$i]->getDatumRodenja() . "\n";
-        echo "SPOL: " . $array[$i]->getSpol() . "\n";
-        echo "MJESEČNA PRIMANJA: " . $array[$i]->getMjesecnaPrimanja() . "\n";
+        echo "Id: " . $array[$i]->getId() . "\n";
+        echo "Ime: " . $array[$i]->getIme() . "\n";
+        echo "Prezime: " . $array[$i]->getPrezime() . "\n";
+        echo "Datum rođenja: " . $array[$i]->getDatumRodenja() . "\n";
+        echo "Spol: " . $array[$i]->getSpol() . "\n";
+        echo "Mjesečna primanja: " . $array[$i]->getMjesecnaPrimanja() . "\n";
         echo "*************************************************\n";
     }
 }
@@ -30,7 +30,7 @@ function ispisiZaposlenike($array)
 function unosZaposlenika($array = null)
 {
 
-    echo "ID: ";
+    echo "Id: ";
     $id = kontrolaId(readline(), $array);
     echo "Ime: ";
     $ime = kontrolaImenaIPrezimena(readline());
@@ -70,16 +70,16 @@ function promjenaZaposlenika($array, $zaposlenikId)
         if ($array[$i]->getId() === $zaposlenikId) {
 
             echo "Koji podatak želite promijeniti (1-6)?\n";
-            echo "1. ID\n";
-            echo "2. IME\n";
-            echo "3. PREZIME\n";
-            echo "4. DATUM ROĐENJA\n";
-            echo "5. SPOL\n";
-            echo "6. MJESEČNA PRIMANJA\n";
+            echo "1. Id\n";
+            echo "2. Ime\n";
+            echo "3. Prezime\n";
+            echo "4. Datum rođenja\n";
+            echo "5. Spol\n";
+            echo "6. Mjesečna primanja\n";
             switch (readline()) {
                 case 1:
                     {
-                        echo "Stara vrijednost ID-a je " . $array[$i]->getId() . "\n";
+                        echo "Stara vrijednost Id-a je " . $array[$i]->getId() . "\n";
                         echo "Unesite novu vrijednost:\n";
                         $array[$i]->setId(kontrolaId(readline(), $array));
                         break;
@@ -120,6 +120,10 @@ function promjenaZaposlenika($array, $zaposlenikId)
                         $array[$i]->setMjesecnaPrimanja(kontrolaMjesecnoPrimanje(readline()));
                         break;
                     }
+                default:
+                    {
+                        echo "Niste odabrali ništa.\n";
+                    }
             }
         }
     }
@@ -143,12 +147,12 @@ function kontrolaImenaIPrezimena($var)
 function kontrolaId($var, $array)
 {
     if ($var === "") {
-        echo "Morate unijeti ID.\nUnesite novi ID:\n";
+        echo "Morate unijeti Id.\nUnesite novi Id:\n";
         return kontrolaId(readline(), $array);
     }
     for ($i = 0; $i < count($array); $i++) {
         if ($array[$i]->getId() === $var) {
-            echo "Zaposlenik s istim ID-em već postoji.\nUnesite novi ID:\n";
+            echo "Zaposlenik s istim Id-em već postoji.\nUnesite novi Id:\n";
             return kontrolaId(readline(), $array);
 
         }
