@@ -126,6 +126,9 @@ function promjenaZaposlenika($array, $zaposlenikId)
                         echo "Niste odabrali ništa.\n";
                     }
             }
+        }else{
+            echo "Taj zaposlenik ne postoji.\n";
+            break;
         }
     }
     return $array;
@@ -287,7 +290,7 @@ function ukupnaStarost($array)
         $ukupniDani -= $godine * 365.25;
         $mjeseci = floor($ukupniDani / 30.44);
         $dani =  $ukupniDani%30.44;
-        echo "Ukupna starost izražena u godinama, mjesecima i danima: $godine god., $mjeseci mj. i $dani d.";
+        echo "Ukupna starost izražena u godinama, mjesecima i danima: $godine god., $mjeseci mj. i $dani d.\n";
 
 
     } catch (Exception $exception) {
