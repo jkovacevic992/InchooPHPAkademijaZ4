@@ -7,14 +7,14 @@ class Zaposlenik extends Osoba
     private $mjesecnaPrimanja;
 
 
-    function __construct($id,$ime,$prezime, $datumRodenja, $spol, $mjesecnaPrimanja) {
-        $this->id=$id;
-        $this->ime=$ime;
-        $this->prezime=$prezime;
-        $this->datumRodenja=$datumRodenja;
-        $this->spol=$spol;
-        $this->mjesecnaPrimanja=$mjesecnaPrimanja;
-
+    function __construct($id, $ime, $prezime, $datumRodenja, $spol, $mjesecnaPrimanja)
+    {
+        $this->id = $id;
+        $this->ime = $ime;
+        $this->prezime = $prezime;
+        $this->datumRodenja = $datumRodenja;
+        $this->spol = $spol;
+        $this->mjesecnaPrimanja = $mjesecnaPrimanja;
 
 
     }
@@ -48,8 +48,6 @@ class Zaposlenik extends Osoba
     {
         $this->mjesecnaPrimanja = $mjesecnaPrimanja;
     }
-
-
 
 
 }

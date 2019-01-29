@@ -273,29 +273,21 @@ function prosjecnaStarost($array)
 
 function ukupnaStarost($array)
 {
-
     try {
-
-        $ukupneGodine = 0;
-        $ukupniMjeseci = 0;
         $ukupniDani = 0;
         $do = new DateTime();
         for ($i = 0; $i < count($array); $i++) {
             $od = new DateTime($array[$i]->getDatumRodenja());
             $diff = $od->diff($do);
             $ukupniDani += (int)$diff->format("%a");
-            $ukupneGodine += $diff->y;
-            $ukupniMjeseci += $diff->y*12;
-
-
-
-
 
         }
 
-        echo "Ukupna starost zaposlenika izražena u godinama: $ukupneGodine god.\n";
-        echo "Ukupna starost zaposlenika izražena u mjesecima: $ukupniMjeseci mj.\n";
-        echo "Ukupna starost zaposlenika izražena u danima: $ukupniDani d.\n";
+        $godine = floor($ukupniDani / 365.25);
+        $ukupniDani -= $godine * 365.25;
+        $mjeseci = floor($ukupniDani / 30.44);
+        $dani =  $ukupniDani%30.44;
+        echo "Ukupna starost izražena u godinama, mjesecima i danima: $godine god., $mjeseci mj. i $dani d.";
 
 
     } catch (Exception $exception) {
@@ -343,6 +335,7 @@ function ukupnaPrimanja($array)
             }
 
         }
+
         echo "Ukupna primanja osoba do 20 godina: " . number_format($ukupnoDoDvadeset, 2, '.', '') . "\n";
         echo "Ukupna primanja osoba između 20 i 30 godina: " . number_format($ukupnoDvadesetTrideset, 2, '.', '') . "\n";
         echo "Ukupna primanja osoba između 30 i 40 godina: " . number_format($ukupnoTridesetCetrdeset, 2, '.', '') . "\n";

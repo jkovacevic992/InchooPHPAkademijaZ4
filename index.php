@@ -5,9 +5,13 @@ require 'functions.php';
 $zaposleniciArray = [];
 $bool = true;
 
-$zaposleniciArray[] = new Zaposlenik('1',"josip","kovačević",'17.01.1994',"muški",123545.45);
-$zaposleniciArray[] = new Zaposlenik(2,"mirko","kovačević",'1.01.1999',"ženski",20000);
-
+$zaposleniciArray[] = new Zaposlenik('1', "josip", "kovačević", '17.01.1994', "muški", 123545.45);
+$zaposleniciArray[] = new Zaposlenik('2', "mirko", "kovačević", '1.01.1989', "ženski", 20000);
+$zaposleniciArray[] = new Zaposlenik('3', "mirko", "kovačević", '1.01.1973', "ženski", 20000);
+$zaposleniciArray[] = new Zaposlenik('4', "mirko", "kovačević", '1.01.1965', "ženski", 20000);
+$zaposleniciArray[] = new Zaposlenik('5', "mirko", "kovačević", '1.01.1985', "ženski", 20000);
+$zaposleniciArray[] = new Zaposlenik('6', "mirko", "kovačević", '1.01.2000.', "ženski", 20000);
+$zaposleniciArray[] = new Zaposlenik('7', "mirko", "kovačević", '29.02.1992.', "ženski", 20000);
 while ($bool) {
 
     ispisiIzbornik();
