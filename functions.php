@@ -13,6 +13,9 @@ function ispisiIzbornik()
     echo "*************************************************\n";
 }
 
+/**
+ * @param $array Zaposlenik[]
+ */
 function ispisiZaposlenike($array)
 {
     echo "*************************************************\n";
@@ -48,7 +51,11 @@ function unosZaposlenika($array = null)
 
 }
 
-
+/**
+ * @param $array Zaposlenik[]
+ * @param $zaposlenikId
+ * @return mixed
+ */
 function brisanjeZaposlenika($array, $zaposlenikId)
 {
 
@@ -64,6 +71,11 @@ function brisanjeZaposlenika($array, $zaposlenikId)
     return $array;
 }
 
+/**
+ * @param $array Zaposlenik[]
+ * @param $zaposlenikId
+ * @return mixed
+ */
 function promjenaZaposlenika($array, $zaposlenikId)
 {
 
@@ -148,6 +160,11 @@ function kontrolaImenaIPrezimena($var)
 
 }
 
+/**
+ * @param $var
+ * @param $array Zaposlenik[]
+ * @return mixed
+ */
 function kontrolaId($var, $array)
 {
     if ($var === "") {
@@ -253,6 +270,9 @@ function ispisiStatistiku($var, $array = null)
     }
 }
 
+/**
+ * @param $array Zaposlenik[]
+ */
 function prosjecnaStarost($array)
 {
     $age = 0;
@@ -274,6 +294,9 @@ function prosjecnaStarost($array)
 
 }
 
+/**
+ * @param $array Zaposlenik[]
+ */
 function ukupnaStarost($array)
 {
     try {
@@ -299,6 +322,9 @@ function ukupnaStarost($array)
 
 }
 
+/**
+ * @param $array Zaposlenik[]
+ */
 function ukupnaPrimanja($array)
 {
     try {
@@ -349,6 +375,9 @@ function ukupnaPrimanja($array)
 
 }
 
+/**
+ * @param $array Zaposlenik[]
+ */
 function prosjecnaPrimanja($array)
 {
     $ukupnaPrimanjaMuskih = 0;
