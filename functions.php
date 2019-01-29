@@ -399,11 +399,25 @@ function prosjecnaPrimanja($array)
             $ukupnaPrimanjaZenskih += $zaposlenik->getMjesecnaPrimanja();
         }
     }
-    $veci = $ukupnaPrimanjaMuskih / $brojMuskih < $ukupnaPrimanjaZenskih / $brojZenskih ? $ukupnaPrimanjaZenskih / $brojZenskih : $ukupnaPrimanjaMuskih / $brojMuskih;
-    $manji = $ukupnaPrimanjaMuskih / $brojMuskih < $ukupnaPrimanjaZenskih / $brojZenskih ? $ukupnaPrimanjaMuskih / $brojMuskih : $ukupnaPrimanjaZenskih / $brojZenskih;
 
-    echo "Prosječna primanja muških osoba: " . number_format($ukupnaPrimanjaMuskih / $brojMuskih, 2, '.', '') . "\n";
-    echo "Prosječna primanja ženskih osoba: " . number_format($ukupnaPrimanjaZenskih / $brojZenskih, 2, '.', '') . "\n";
-    echo "Razlika u prosječnim primanjima muških i ženskih osoba: " . number_format($veci - $manji, 2, '.', '') . "\n";
+    if($ukupnaPrimanjaMuskih>0 && $ukupnaPrimanjaZenskih>0){
+        $prosjecnaPrimanjaZenskih = $ukupnaPrimanjaZenskih/$brojZenskih;
+        $prosjecnaPrimanjaMuskih = $ukupnaPrimanjaMuskih/$brojMuskih;
+        $veci = $prosjecnaPrimanjaMuskih < $prosjecnaPrimanjaZenskih ? $prosjecnaPrimanjaZenskih : $prosjecnaPrimanjaMuskih;
+        $manji = $prosjecnaPrimanjaMuskih < $prosjecnaPrimanjaZenskih ? $prosjecnaPrimanjaMuskih : $prosjecnaPrimanjaZenskih;
+
+        echo "Prosječna primanja muških osoba: " . number_format($prosjecnaPrimanjaMuskih, 2, '.', '') . "\n";
+        echo "Prosječna primanja ženskih osoba: " . number_format($prosjecnaPrimanjaZenskih, 2, '.', '') . "\n";
+        echo "Razlika u prosječnim primanjima muških i ženskih osoba: " . number_format($veci - $manji, 2, '.', '') . "\n";
+    }elseif($ukupnaPrimanjaZenskih===0){
+        echo "Prosječna primanja muških osoba: " . number_format($ukupnaPrimanjaMuskih/$brojMuskih, 2, '.', '') . "\n";
+        echo "Prosječna primanja ženskih osoba: " . number_format($ukupnaPrimanjaZenskih, 2, '.', '') . "\n";
+        echo "Razlika u prosječnim primanjima muških i ženskih osoba: " . number_format($ukupnaPrimanjaMuskih/$brojMuskih, 2, '.', '') . "\n";
+    }else{
+        echo "Prosječna primanja muških osoba: " . number_format($ukupnaPrimanjaMuskih, 2, '.', '') . "\n";
+        echo "Prosječna primanja ženskih osoba: " . number_format($ukupnaPrimanjaZenskih/$brojZenskih, 2, '.', '') . "\n";
+        echo "Razlika u prosječnim primanjima muških i ženskih osoba: " . number_format($ukupnaPrimanjaZenskih/$brojZenskih, 2, '.', '') . "\n";
+    }
+
 }
 
