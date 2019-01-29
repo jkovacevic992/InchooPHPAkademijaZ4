@@ -54,20 +54,22 @@ function unosZaposlenika($array = null)
 /**
  * @param $array Zaposlenik[]
  * @param $zaposlenikId
- * @return mixed
+ * @return array
  */
 function brisanjeZaposlenika($array, $zaposlenikId)
 {
-
-    for ($i = 0; $i <= count($array); $i++) {
-
+    for ($i = 0; $i < count($array); $i++) {
         if (isset($array[$i]) && $array[$i]->getId() === $zaposlenikId) {
+
             $array[$i] = null;
+
             unset($array[$i]);
 
         }
     }
+
     $array = array_values($array);
+
     return $array;
 }
 
@@ -79,8 +81,8 @@ function brisanjeZaposlenika($array, $zaposlenikId)
 function promjenaZaposlenika($array, $zaposlenikId)
 {
 
-    for ($i = 0; $i < count($array); $i++) {
-        if ($array[$i]->getId() === $zaposlenikId) {
+    foreach ($array as $zaposlenik) {
+        if ($zaposlenik->getId() === $zaposlenikId) {
 
             echo "Koji podatak želite promijeniti (1-6)?\n";
             echo "1. Id\n";
@@ -92,45 +94,45 @@ function promjenaZaposlenika($array, $zaposlenikId)
             switch (readline()) {
                 case 1:
                     {
-                        echo "Stara vrijednost Id-a je " . $array[$i]->getId() . "\n";
+                        echo "Stara vrijednost Id-a je " . $zaposlenik->getId() . "\n";
                         echo "Unesite novu vrijednost:\n";
-                        $array[$i]->setId(kontrolaId(readline(), $array));
+                        $zaposlenik->setId(kontrolaId(readline(), $array));
                         break;
                     }
                 case 2:
                     {
-                        echo "Staro ime je " . $array[$i]->getIme() . "\n";
+                        echo "Staro ime je " . $zaposlenik->getIme() . "\n";
                         echo "Unesite novu vrijednost:\n";
-                        $array[$i]->setIme(kontrolaImenaIPrezimena(readline()));
+                        $zaposlenik->setIme(kontrolaImenaIPrezimena(readline()));
                         break;
                     }
                 case 3:
                     {
-                        echo "Staro prezime je " . $array[$i]->getPrezime() . "\n";
+                        echo "Staro prezime je " . $zaposlenik->getPrezime() . "\n";
                         echo "Unesite novu vrijednost:\n";
-                        $array[$i]->setPrezime(kontrolaImenaIPrezimena(readline()));
+                        $zaposlenik->setPrezime(kontrolaImenaIPrezimena(readline()));
                         break;
                     }
                 case 4:
                     {
-                        echo "Stari datum rođenja je " . $array[$i]->getDatumRodenja() . "\n";
+                        echo "Stari datum rođenja je " . $zaposlenik->getDatumRodenja() . "\n";
                         echo "Unesite novu vrijednost:\n";
-                        $array[$i]->setDatumRodenja(kontrolaDatum(readline()));
+                        $zaposlenik->setDatumRodenja(kontrolaDatum(readline()));
                         break;
 
                     }
                 case 5:
                     {
-                        echo "Stari spol je " . $array[$i]->getSpol() . "\n";
+                        echo "Stari spol je " . $zaposlenik->getSpol() . "\n";
                         echo "Unesite novu vrijednost:\n";
-                        $array[$i]->setSpol(kontrolaSpol(readline()));
+                        $zaposlenik->setSpol(kontrolaSpol(readline()));
                         break;
                     }
                 case 6:
                     {
-                        echo "Stari iznos mjesečnih primanja je  " . $array[$i]->getMjesecnaPrimanja() . "\n";
+                        echo "Stari iznos mjesečnih primanja je  " . $zaposlenik->getMjesecnaPrimanja() . "\n";
                         echo "Unesite novu vrijednost:\n";
-                        $array[$i]->setMjesecnaPrimanja(kontrolaMjesecnoPrimanje(readline()));
+                        $zaposlenik->setMjesecnaPrimanja(kontrolaMjesecnoPrimanje(readline()));
                         break;
                     }
                 default:
@@ -138,9 +140,6 @@ function promjenaZaposlenika($array, $zaposlenikId)
                         echo "Niste odabrali ništa.\n";
                     }
             }
-        }else{
-            echo "Taj zaposlenik ne postoji.\n";
-            break;
         }
     }
     return $array;
@@ -171,8 +170,9 @@ function kontrolaId($var, $array)
         echo "Morate unijeti Id.\nUnesite novi Id:\n";
         return kontrolaId(readline(), $array);
     }
-    for ($i = 0; $i < count($array); $i++) {
-        if ($array[$i]->getId() === $var) {
+    foreach ($array as $zaposlenik) {
+
+        if (isset($zaposlenik) && $zaposlenik->getId() === $var) {
             echo "Zaposlenik s istim Id-em već postoji.\nUnesite novi Id:\n";
             return kontrolaId(readline(), $array);
 
@@ -278,8 +278,10 @@ function prosjecnaStarost($array)
     $age = 0;
     try {
         $do = new DateTime();
-        for ($i = 0; $i < count($array); $i++) {
-            $od = new DateTime($array[$i]->getDatumRodenja());
+        foreach ($array as $zaposlenik) {
+
+
+            $od = new DateTime($zaposlenik->getDatumRodenja());
             $difference = $do->diff($od);
             $age += $difference->y;
 
@@ -302,8 +304,10 @@ function ukupnaStarost($array)
     try {
         $ukupniDani = 0;
         $do = new DateTime();
-        for ($i = 0; $i < count($array); $i++) {
-            $od = new DateTime($array[$i]->getDatumRodenja());
+        foreach ($array as $zaposlenik) {
+
+
+            $od = new DateTime($zaposlenik->getDatumRodenja());
             $diff = $od->diff($do);
             $ukupniDani += (int)$diff->format("%a");
 
@@ -312,7 +316,7 @@ function ukupnaStarost($array)
         $godine = floor($ukupniDani / 365.25);
         $ukupniDani -= $godine * 365.25;
         $mjeseci = floor($ukupniDani / 30.44);
-        $dani =  $ukupniDani%30.44;
+        $dani = $ukupniDani % 30.44;
         echo "Ukupna starost izražena u godinama, mjesecima i danima: $godine god., $mjeseci mj. i $dani d.\n";
 
 
@@ -333,32 +337,34 @@ function ukupnaPrimanja($array)
         $ukupnoTridesetCetrdeset = 0;
         $ukupnoOdCetrdeset = 0;
         $do = new DateTime();
-        for ($i = 0; $i < count($array); $i++) {
-            $od = new DateTime($array[$i]->getDatumRodenja());
+        foreach ($array as $zaposlenik) {
+
+
+            $od = new DateTime($zaposlenik->getDatumRodenja());
             $difference = $do->diff($od);
             $age = $difference->y;
 
             switch ($age) {
                 case ($age < 20):
                     {
-                        $ukupnoDoDvadeset += $array[$i]->getMjesecnaPrimanja();
+                        $ukupnoDoDvadeset += $zaposlenik->getMjesecnaPrimanja();
                         break;
                     }
                 case ($age >= 20 && $age < 30):
                     {
 
-                        $ukupnoDvadesetTrideset += $array[$i]->getMjesecnaPrimanja();
+                        $ukupnoDvadesetTrideset += $zaposlenik->getMjesecnaPrimanja();
 
                         break;
                     }
                 case ($age >= 30 && $age < 40):
                     {
-                        $ukupnoTridesetCetrdeset += $array[$i]->getMjesecnaPrimanja();
+                        $ukupnoTridesetCetrdeset += $zaposlenik->getMjesecnaPrimanja();
                         break;
                     }
                 case ($age >= 40):
                     {
-                        $ukupnoOdCetrdeset += $array[$i]->getMjesecnaPrimanja();
+                        $ukupnoOdCetrdeset += $zaposlenik->getMjesecnaPrimanja();
                         break;
                     }
             }
@@ -384,13 +390,13 @@ function prosjecnaPrimanja($array)
     $ukupnaPrimanjaZenskih = 0;
     $brojMuskih = 0;
     $brojZenskih = 0;
-    for ($i = 0; $i < count($array); $i++) {
-        if ($array[$i]->getSpol() === "muški") {
+    foreach ($array as $zaposlenik) {
+        if ($zaposlenik->getSpol() === "muški") {
             $brojMuskih++;
-            $ukupnaPrimanjaMuskih += $array[$i]->getMjesecnaPrimanja();
+            $ukupnaPrimanjaMuskih += $zaposlenik->getMjesecnaPrimanja();
         } else {
             $brojZenskih++;
-            $ukupnaPrimanjaZenskih += $array[$i]->getMjesecnaPrimanja();
+            $ukupnaPrimanjaZenskih += $zaposlenik->getMjesecnaPrimanja();
         }
     }
     $veci = $ukupnaPrimanjaMuskih / $brojMuskih < $ukupnaPrimanjaZenskih / $brojZenskih ? $ukupnaPrimanjaZenskih / $brojZenskih : $ukupnaPrimanjaMuskih / $brojMuskih;
